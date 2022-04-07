@@ -2,19 +2,42 @@
 //
 
 #include <iostream>
+#include "tgaimage.h"
+
+const int width = 200;
+const int height = 200;
+
+const TGAColor red = TGAColor(255, 0, 0, 255);
+const TGAColor green = TGAColor(0, 255, 0, 255);
+const TGAColor blue = TGAColor(0, 0, 255, 255);
+const TGAColor white = TGAColor(255, 255, 255, 255);
+
+void draw_line(int x1, int y1, int x2, int y2, TGAImage& image, const TGAColor& color);
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	TGAImage image(width, height, TGAImage::RGB);
+
+	draw_line(10, 10, 100, 50, image, white);
+	// Image is flipped vertically, to show it from bottom-left corner.
+	image.flip_vertically();
+
+	image.write_tga_file("output.tga");
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void draw_line(int x1, int y1, int x2, int y2, TGAImage& image, const TGAColor& color)
+{
+	int deltaX = x2 - x1;
+	int deltaY = y2 - y1;
+	int change = deltaY / deltaX;
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+	int y = y1;
+	for (int x = x1; x <= x2; x++)
+	{
+		if (change % x == 0)
+			y++;
+
+		image.set(x, y, color);
+	}
+}
+
