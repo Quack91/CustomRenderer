@@ -18,7 +18,7 @@ int main()
 {
 	TGAImage image(width, height, TGAImage::RGB);
 
-	draw_line(10, 10, 100, 50, image, white);
+	draw_line(10, 10, 100, 20, image, white);
 	// Image is flipped vertically, to show it from bottom-left corner.
 	image.flip_vertically();
 
@@ -29,14 +29,14 @@ void draw_line(int x1, int y1, int x2, int y2, TGAImage& image, const TGAColor& 
 {
 	int deltaX = x2 - x1;
 	int deltaY = y2 - y1;
-	int change = deltaY / deltaX;
+	float m = deltaY / static_cast<float>(deltaX);
+
+	int b = y1 - m * x1;
 
 	int y = y1;
 	for (int x = x1; x <= x2; x++)
 	{
-		if (change % x == 0)
-			y++;
-
+		y = m * x + b;
 		image.set(x, y, color);
 	}
 }
