@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "tgaimage.h"
+#include "geometry.h"
 
 const int width = 200;
 const int height = 200;
@@ -15,7 +16,6 @@ const TGAColor white = TGAColor(255, 255, 255, 255);
 void draw_line_naive(int x1, int y1, int x2, int y2, TGAImage& image, const TGAColor& color);
 void draw_line_dda(int x1, int y1, int x2, int y2, TGAImage& image, const TGAColor& color);
 void draw_line_bresenham(int x1, int y1, int x2, int y2, TGAImage& image, const TGAColor& color);
-
 
 int main()
 {
