@@ -4,67 +4,58 @@
 * File containing linear algebra structures that describe geometry.
 */
 
-struct Vector2
+template<class T>
+struct Vec2
 {
-	union
-	{
-		struct {
-			float x, y;
-		};
-		struct {
-			float u, v;
-		};
-
-		float raw[2];
+	union {
+		struct { T x, y; };
+		struct { T u, v; };
+		T raw[2];
 	};
 
-	Vector2(float X = 0, float Y = 0) : x(X), y(Y)
-	{
+	Vec2(T X = 0, T Y = 0) : x(X), y(Y) { }
 
-	}
+	inline Vec2<T> operator +(const Vec2<T>& V) { return Vec2<T>(x + V.x, y + V.y); }
+	inline Vec2<T> operator -(const Vec2<T>& V) { return Vec2<T>(x - V.x, y - V.y); }
+	inline Vec2<T> operator *(T value) { return Vec2<T>(x * value, y * value); }
+	inline Vec2<T> operator /(T value) { return Vec2<T>(x / value, y / value); }
+	inline T operator [](int index) { return raw[index]; }
 
-	inline Vector2 operator +(const Vector2& V) {
-		return Vector2(x + V.x, y + V.y);
-	}
-
-	inline Vector2 operator -(const Vector2& V) {
-		return Vector2(x - V.x, y - V.y);
-	}
-
-	inline Vector2 operator *(float f) {
-		return Vector2(x * f, y * f);
-	}
-
-	inline Vector2 operator *(int i) {
-		return Vector2(x * i, y * i);
-	}
-
-	inline float operator [](int index) {
-		return raw[index];
-	}
-
-	inline float operator |(const Vector2& V) const {
-		return x * V.x + y * V.y;
-	}
-
-	Vector2& operator *=(float f)
-	{
-		x *= f;
-		y *= f;
-
+	inline Vec2<T>& operator +=(const Vec2<T>& V) {
+		x += V.x;
+		y += V.y;
 		return *this;
 	}
 
-	Vector2& operator *=(int i)
-	{
-		x *= i;
-		y *= i;
-
+	inline Vec2<T>& operator -=(const Vec2<T>& V) {
+		x -= V.x;
+		y -= V.y;
 		return *this;
 	}
 
+	inline Vec2<T>& operator *=(const T value) {
+		x *= value;
+		y *= value;
+		return *this;
+	}
 
-	static float DotProduct(const Vector2& lhs, const Vector2& rhs) {
-		return lhs | rhs;
+	inline Vec2<T>& operator /=(const T value) {
+		x /= value;
+		y /= value;
+		return *this;
+	}
+
+	inline static float DotProduct(const Vec2<T>& lhs, const Vec2<T>& rhs) { return lhs.x * rhs.x + lhs.y * rhs.y; }
+
+	inline float Length() {
+		return std::sqrt(x * x + y * y);
+	}
+
+	inline Vec2<T> GetNormalized() {
+		return *this / Length();
 	}
 };
+
+
+typedef Vec2<float> Vector2;
+typedef Vec2<int> Vector2Int;

@@ -19,13 +19,7 @@ void draw_line_bresenham(int x1, int y1, int x2, int y2, TGAImage& image, const 
 
 int main()
 {
-	TGAImage image(width, height, TGAImage::RGB);
 
-	draw_line_bresenham(40, 10, 10, 150, image, white);
-	// Image is flipped vertically, to show it from bottom-left corner.
-	image.flip_vertically();
-
-	image.write_tga_file("output.tga");
 }
 
 void draw_line_naive(int x1, int y1, int x2, int y2, TGAImage& image, const TGAColor& color)
