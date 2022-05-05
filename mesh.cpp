@@ -4,7 +4,7 @@
 #include <sstream>
 #include "mesh.h"
 
-mesh::mesh(const char* filename) : m_vertices(), m_faces()
+mesh::mesh(const char* filename) : m_vertices(), m_textures(), m_normals(), m_faces()
 {
 	/** Opening file containing model. */
 	std::ifstream in;
@@ -78,4 +78,44 @@ mesh::mesh(const char* filename) : m_vertices(), m_faces()
 			m_faces.push_back(face);
 		}
 	}
+}
+
+Vector3 mesh::GetVertex(int index) const
+{
+	return m_vertices[index];
+}
+
+Vector2 mesh::GetTexture(int index) const
+{
+	return m_textures[index];
+}
+
+Vector3 mesh::GetNormal(int index) const
+{
+	return m_normals[index];
+}
+
+face mesh::GetFace(int index) const
+{
+	return m_faces[index];
+}
+
+int mesh::GetVerticesCount() const
+{
+	return static_cast<int>(m_vertices.size());
+}
+
+int mesh::GetTexturesCount() const
+{
+	return static_cast<int>(m_textures.size());
+}
+
+int mesh::GetNormalsCount() const
+{
+	return static_cast<int>(m_normals.size());
+}
+
+int mesh::GetFaceCount() const
+{
+	return static_cast<int>(m_faces.size());
 }

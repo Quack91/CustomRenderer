@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 
 /*
 * File containing linear algebra structures that describe geometry.
