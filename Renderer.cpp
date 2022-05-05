@@ -4,6 +4,7 @@
 #include <iostream>
 #include "tgaimage.h"
 #include "geometry.h"
+#include "mesh.h"
 
 const int width = 200;
 const int height = 200;
@@ -19,7 +20,7 @@ void draw_line_bresenham(int x1, int y1, int x2, int y2, TGAImage& image, const 
 
 int main()
 {
-
+	mesh mesh("obj/african_head.obj");
 }
 
 void draw_line_naive(int x1, int y1, int x2, int y2, TGAImage& image, const TGAColor& color)
